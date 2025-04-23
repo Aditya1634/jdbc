@@ -57,9 +57,9 @@ public class ProductDaO {
 		Statement stmt = connect.createStatement();
 		ResultSet res = stmt.executeQuery(sql);
 		
-		System.out.println("ID"+" "+ "Name"+" "+"Price");
+		System.out.println("ID"+" "+ "Name"+" "+"Price"+" "+"Category_Id");
 		while(res.next()) {
-			System.out.println(res.getInt(1)+" "+ res.getString(2)+" "+res.getDouble(3));
+			System.out.println(res.getInt(1)+" "+ res.getString(2)+" "+res.getDouble(3)+" "+res.getInt(4));
 		}
 		connect.close();
 	}
@@ -76,11 +76,12 @@ public class ProductDaO {
 		System.out.println("Enter updated Price");
 		double price = sc.nextDouble();
 		
-		String sql = "update product set name = ?, price = ?";
+		String sql = "update product set name = ?, price = ? where id = ?";
 		PreparedStatement pstm = connect.prepareStatement(sql);
 		
 		pstm.setString(1, name);
 		pstm.setDouble(2, price);
+		pstm.setInt(3, id);
 		pstm.execute();
 		
 		System.out.println("Update Success");

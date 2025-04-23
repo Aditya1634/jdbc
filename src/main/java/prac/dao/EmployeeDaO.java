@@ -81,11 +81,12 @@ public class EmployeeDaO {
 		System.out.println("Enter updated sal");
 		double sal = sc.nextDouble();
 		
-		String sql = "update emp set name = ?, sal = ?";
+		String sql = "update emp set name = ?, sal = ? where id = ?";
 		PreparedStatement pstm = connect.prepareStatement(sql);
 		
 		pstm.setString(1, name);
 		pstm.setDouble(2, sal);
+		pstm.setInt(3, id);
 		pstm.execute();
 		
 		System.out.println("Update Success");
