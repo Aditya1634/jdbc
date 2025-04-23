@@ -1,7 +1,5 @@
 package prac.dao;
 
-// DaO layer
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,82 +8,79 @@ import java.util.Scanner;
 
 import prac.util.DBConnection;
 
-// DaO: Data Access object
-// CRUD operation related method to be put here
-public class EmployeeDaO {
-	
-	public static void addEmployee() throws Exception{
+public class ProductDaO {
+	public static void addProduct() throws Exception{
 		Connection connect = DBConnection.createConnection();
 
-		String sql = "insert into emp (name,sal) values(?,?)";
+		String sql = "insert into product (name,price) values(?,?)";
 		// Create Statement
 		PreparedStatement pstm = connect.prepareStatement(sql);
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Name");
+		System.out.println("Enter Product name");
 		String name = sc.next();
-		System.out.println("Enter Salary");
-		double sal = sc.nextDouble();
+		System.out.println("Enter Price");
+		double price = sc.nextDouble();
 		pstm.setString(1, name);
-		pstm.setDouble(2, sal);
+		pstm.setDouble(2, price);
 
 		//Execute Query
 		pstm.execute();
 		
 		System.out.println("Add Success");
-		0
 		//Close connection
 		connect.close();
 	}
 	
-	public static void deleteEmployee() throws Exception{
+	public static void deleteProduct() throws Exception{
 		Connection connect = DBConnection.createConnection();
-		String sql = "delete from emp where id = ?";
+		String sql = "delete from product where id = ?";
 		// Create Statement
 		PreparedStatement pstm = connect.prepareStatement(sql);
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Employee ID you want to delete");
+		System.out.println("Enter Product ID you want to delete");
 		int id = sc.nextInt();
 		
 		pstm.setInt(1, id);
 
 		pstm.execute();
+		
 		System.out.println("Delete Success");
 		
 		connect.close();
 	}
 	
-	public static void findAll() throws Exception{
+	public static void listAllProducts() throws Exception{
 		Connection connect = DBConnection.createConnection();
-		String sql = "select * from emp";
+		String sql = "select * from product";
 		Statement stmt = connect.createStatement();
 		ResultSet res = stmt.executeQuery(sql);
 		
-		System.out.println("ID"+" "+ "Name"+" "+"Salary");
+		System.out.println("ID"+" "+ "Name"+" "+"Price");
 		while(res.next()) {
 			System.out.println(res.getInt(1)+" "+ res.getString(2)+" "+res.getDouble(3));
 		}
 		connect.close();
 	}
 	
-	public static void updateEmpbyID() throws Exception{
+	public static void updateProductbyID() throws Exception{
 		Connection connect = DBConnection.createConnection();
-		System.out.println("Enter ID of the employee you want to update");
+		System.out.println("Enter ID of the Product you want to update");
 		Scanner sc = new Scanner(System.in);
 		int id = sc.nextInt();
 		
-		System.out.println("Enter updated name");
+		System.out.println("Enter updated Product name");
 		String name = sc.next();
 		
-		System.out.println("Enter updated sal");
-		double sal = sc.nextDouble();
+		System.out.println("Enter updated Price");
+		double price = sc.nextDouble();
 		
-		String sql = "update emp set name = ?, sal = ?";
+		String sql = "update product set name = ?, price = ?";
 		PreparedStatement pstm = connect.prepareStatement(sql);
 		
 		pstm.setString(1, name);
-		pstm.setDouble(2, sal);
+		pstm.setDouble(2, price);
 		pstm.execute();
 		
 		System.out.println("Update Success");
