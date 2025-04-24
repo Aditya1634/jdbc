@@ -12,7 +12,7 @@ public class ProductDaO {
 	public static void addProduct() throws Exception{
 		Connection connect = DBConnection.createConnection();
 
-		String sql = "insert into product (name,price) values(?,?)";
+		String sql = "insert into product (name,price,cat_id) values(?,?,?)";
 		// Create Statement
 		PreparedStatement pstm = connect.prepareStatement(sql);
 		
@@ -21,8 +21,11 @@ public class ProductDaO {
 		String name = sc.next();
 		System.out.println("Enter Price");
 		double price = sc.nextDouble();
+		System.out.println("Enter Category ID");
+		int cat_id = sc.nextInt();
 		pstm.setString(1, name);
 		pstm.setDouble(2, price);
+		pstm.setInt(3, cat_id);
 
 		//Execute Query
 		pstm.execute();
@@ -70,11 +73,11 @@ public class ProductDaO {
 		Scanner sc = new Scanner(System.in);
 		int id = sc.nextInt();
 		
-		System.out.println("Enter updated Product name");
-		String name = sc.next();
-		
 		System.out.println("Enter updated Price");
 		double price = sc.nextDouble();
+		
+		System.out.println("Enter updated Product name");
+		String name = sc.next();
 		
 		String sql = "update product set name = ?, price = ? where id = ?";
 		PreparedStatement pstm = connect.prepareStatement(sql);

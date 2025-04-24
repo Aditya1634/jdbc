@@ -17,7 +17,7 @@ public class CategoryDaO {
 		PreparedStatement pstm = connect.prepareStatement(sql);
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Product name");
+		System.out.println("Enter Category name");
 		String name = sc.next();
 		pstm.setString(1, name);
 
@@ -78,6 +78,23 @@ public class CategoryDaO {
 		pstm.execute();
 		
 		System.out.println("Update Success");
+		sc.close();
+		connect.close();
+	}
+	
+	public static void findCategoryNamebyProductId() throws Exception{
+		Connection connect = DBConnection.createConnection();
+		System.out.println("Enter ID of the Product you want to find Category for");
+		Scanner sc = new Scanner(System.in);
+		int id = sc.nextInt();
+		
+		String sql = "select name from category where id = (select cat_id from product where id = ?)";
+		PreparedStatement pstm = connect.prepareStatement(sql);
+		pstm.setInt(1, id);
+		ResultSet res = pstm.executeQuery();
+		while(res.next()) {
+			System.out.println("Category Name is "+res.getString("name"));
+		}
 		sc.close();
 		connect.close();
 	}

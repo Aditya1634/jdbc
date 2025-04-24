@@ -8,7 +8,7 @@ import prac.dao.EmployeeDaO;
 // Static Query -> use Statement Interface
 // Dynamic Query Data passed by user -> use PreparedStatement
 
-public class EMS_UI {
+public class Employee_MS_UI {
 	public static void main(String[] args) throws Exception {
 		System.out.println("Employee Management System");
 		Scanner sc = new Scanner(System.in);
